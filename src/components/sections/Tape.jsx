@@ -12,18 +12,21 @@ const Tape = () => {
   ];
 
   // Duplicate the data for seamless looping
-  const doubledData = [...tapeData, ...tapeData];
+  const renderGroup = (offset) => (
+    <div className="tape-group" key={offset}>
+      {tapeData.map((item, index) => (
+        <span key={index} className="tape-item">
+          {item.symbol} <b>{item.price}</b> {item.change && <span className={item.isUp ? 'up' : 'down'}>{item.change}</span>}
+        </span>
+      ))}
+    </div>
+  );
 
   return (
     <div className="tape" aria-hidden="true">
       <div className="tape-track">
-        {doubledData.map((item, index) => (
-          <div key={index} className="tape-group">
-            <span className="tape-item">
-              {item.symbol} <b>{item.price}</b> {item.change && <span className={item.isUp ? 'up' : 'down'}>{item.change}</span>}
-            </span>
-          </div>
-        ))}
+        {renderGroup(0)}
+        {renderGroup(1)}
       </div>
     </div>
   );

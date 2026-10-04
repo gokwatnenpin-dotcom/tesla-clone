@@ -1,8 +1,6 @@
 import React from 'react';
 
 const Footer = () => {
-  const currentYear = new Date().getFullYear();
-
   return (
     <footer className="footer">
       <div className="container">
@@ -13,7 +11,7 @@ const Footer = () => {
               <span className="brand-text">TSLA<em>INVEST</em></span>
             </a>
             <p style={{ color: 'var(--txt-dim)', fontSize: '12.5px', maxWidth: '34ch', marginTop: '12px' }}>
-              A demo investment experience. Built with plain HTML, CSS and JavaScript.
+              A demo investment experience. Built with React, Vite and Tailwind.
             </p>
           </div>
           <div className="footer-cols">
@@ -23,6 +21,7 @@ const Footer = () => {
               <a href="#portfolio">Portfolio</a>
               <a href="#calculator">Calculator</a>
               <a href="#news">News</a>
+              <a href="#payment">Payment Gateway</a>
             </div>
             <div className="footer-col">
               <h4>Company</h4>
@@ -41,7 +40,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="footer-bottom">
-          <span>© <span id="year">{currentYear}</span> TSLA INVEST — DEMO PROJECT</span>
+          <span>© TSLA INVEST — DEMO PROJECT</span>
           <span>SIMULATED DATA · NOT INVESTMENT ADVICE</span>
         </div>
       </div>

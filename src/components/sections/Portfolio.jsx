@@ -29,8 +29,8 @@ const Portfolio = () => {
                 <div className="pf-total" id="pfTotal">
                   ${totalValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </div>
-                <div className={`pf-pnl ${unrealizedPnL >= 0 ? 'up' : 'down'}`} id="pfPnl">
-                  {unrealizedPnL >= 0 ? '▲ +' : '▼ '}${Math.abs(unrealizedPnL).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ({returnPct >= 0 ? '+' : ''}${returnPct.toFixed(2)}%)
+                <div className={`pf-pnl ${unrealizedPnL >= 0 ? '' : 'neg'}`} id="pfPnl">
+                  {unrealizedPnL >= 0 ? '▲ +' : '▼ -'}${Math.abs(unrealizedPnL).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ({returnPct >= 0 ? '+' : ''}{returnPct.toFixed(2)}%)
                 </div>
               </div>
               <div style={{ textAlign: 'right' }}>
@@ -59,7 +59,7 @@ const Portfolio = () => {
               <div className="pf-metric">
                 <div className="k">Return</div>
                 <div className={`v ${returnPct >= 0 ? 'up' : 'down'}`} id="pfReturn">
-                  {returnPct >= 0 ? '+' : ''}${returnPct.toFixed(2)}%
+                  {returnPct >= 0 ? '+' : ''}{returnPct.toFixed(2)}%
                 </div>
               </div>
               <div className="pf-metric">
@@ -108,7 +108,7 @@ const Portfolio = () => {
             <div className="allocation-bar">
               <span style={{ width: '100%', background: 'var(--red)' }}></span>
             </div>
-            <div className="alloc-legend">
+            <div className="allocation-legend">
               <div className="item">
                 <span className="lbl">
                   <span className="swatch" style={{ background: 'var(--red)' }}></span>

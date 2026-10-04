@@ -107,7 +107,7 @@ const Chart = ({ range }) => {
       const rect = canvas.getBoundingClientRect();
       const x = e.clientX - rect.left;
       hoverIndex = Math.round(clamp(x / W, 0, 1) * (data.length - 1));
-      const b = bounds(), value = data[hoverIndex], px = xAt(hoverIndex);
+      const value = data[hoverIndex], px = xAt(hoverIndex);
       tip.style.left = px + 'px';
       tip.innerHTML = `<span class="p">$${value.toFixed(2)}</span><span class="t">${RANGES[currentRange].label} · PT ${hoverIndex + 1}/${data.length}</span>`;
       tip.classList.add('show');

@@ -96,9 +96,7 @@ const Terminal = () => {
             </div>
           </div>
 
-          <div className="chart-wrap">
-            <Chart range={range} />
-          </div>
+          <Chart range={range} />
 
           <div className="terminal-bottom">
             <div className="tstat">

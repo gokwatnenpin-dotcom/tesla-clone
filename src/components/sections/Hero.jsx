@@ -7,7 +7,7 @@ const Hero = () => {
       <div className="hero-glow"></div>
       <div className="container">
         <div className="pill reveal">
-          <span className="dot"></span> NASDAQ: TSLA · Market Open · Sep 14, 2026
+          <span className="dot"></span> NASDAQ: TSLA · Market Open
         </div>
         <h1 className="reveal d1">
           Own a piece of<br /><span className="grad">the future.</span>

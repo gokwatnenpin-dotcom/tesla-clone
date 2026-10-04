@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
 /* ============================================================
    RESET + TOKENS — Tesla / xAI inspired
    ============================================================ */
@@ -95,7 +97,11 @@ button{background:none;border:none;cursor:pointer}
 .hero{position:relative;padding:clamp(80px,12vw,160px) 0 clamp(60px,8vw,100px);overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000 10%,transparent 75%);mask-image:radial-gradient(ellipse 80% 60% at 50% 30%,#000 10%,transparent 75%);pointer-events:none}
 .hero-glow{position:absolute;top:-300px;left:50%;transform:translateX(-50%);width:min(1000px,120vw);height:700px;background:radial-gradient(ellipse at center,rgba(232,33,39,.22),rgba(232,33,39,.04) 45%,transparent 70%);pointer-events:none}
-.hero .container{position:relative;z-index:2}
+.hero .container{position:relative;z-index:2;text-align:center}
+.hero h1{margin-left:auto;margin-right:auto}
+.hero .lede{margin-left:auto;margin-right:auto}
+.hero-cta{justify-content:center}
+.hero-stats{text-align:left}
 .pill{display:inline-flex;align-items:center;gap:9px;padding:6px 14px 6px 10px;border:1px solid var(--border);border-radius:100px;background:var(--surface);font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--txt-muted);text-transform:uppercase;margin-bottom:28px}
 .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(34,197,94,.6);animation:pulse 2s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5)}70%{box-shadow:0 0 0 8px rgba(34,197,94,0)}100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}}
@@ -190,11 +196,11 @@ h2 .dim{color:var(--txt-dim)}
 .pf-side h3{font-size:15px;font-weight:600;margin-bottom:4px}
 .allocation-bar{height:6px;border-radius:100px;background:var(--border);overflow:hidden;display:flex}
 .allocation-bar span{height:100%}
-.alloc-legend{display:flex;flex-direction:column;gap:10px;font-size:12.5px}
-.alloc-legend .item{display:flex;justify-content:space-between;align-items:center}
-.alloc-legend .swatch{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:8px}
-.alloc-legend .lbl{color:var(--txt-muted);display:flex;align-items:center}
-.alloc-legend .pct{font-family:var(--mono);font-weight:500}
+.allocation-legend{display:flex;flex-direction:column;gap:10px;font-size:12.5px}
+.allocation-legend .item{display:flex;justify-content:space-between;align-items:center}
+.allocation-legend .swatch{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:8px}
+.allocation-legend .lbl{color:var(--txt-muted);display:flex;align-items:center}
+.allocation-legend .pct{font-family:var(--mono);font-weight:500}
 
 /* ============================================================
    CALCULATOR
@@ -232,7 +238,7 @@ input[type="range"]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;b
    NEWS
    ============================================================ */
 .news-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
-.news-item{display:grid;grid-template-columns:90px 1fr auto;gap:20px;align-items:center;padding:18px 22px;background:var(--bg);transition:background .2s}
+.news-item{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;padding:18px 22px;background:var(--bg);transition:background .2s}
 .news-item:hover{background:var(--bg-2)}
 .news-date{font-family:var(--mono);font-size:11px;color:var(--txt-dim);letter-spacing:.05em}
 .news-title{font-size:14px;font-weight:500;color:var(--txt)}
@@ -277,6 +283,18 @@ input[type="range"]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;b
 .footer-col a{display:block;font-size:13px;color:var(--txt-muted);padding:4px 0;transition:color .2s,transform .2s}
 .footer-col a:hover{color:var(--txt);transform:translateX(2px)}
 .footer-bottom{padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--txt-dim);font-family:var(--mono)}
+
+.pay-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:620px){.pay-row{grid-template-columns:1fr}}
+
+/* ============================================================
+   AUTH / ADMIN
+   ============================================================ */
+.auth-card{max-width:560px;margin:0 auto;border:1px solid var(--border);border-radius:var(--radius-lg);padding:clamp(26px,4vw,40px);background:var(--bg-2)}
+.tabs{display:flex;gap:8px;margin-bottom:20px}
+.tab{padding:9px 18px;border-radius:100px;border:1px solid var(--border);font-size:12.5px;font-family:var(--mono);color:var(--txt-muted);transition:all .2s}
+.tab:hover{color:var(--txt)}
+.tab.active{background:var(--red);color:#fff;border-color:var(--red)}
 
 /* ============================================================
    REVEAL

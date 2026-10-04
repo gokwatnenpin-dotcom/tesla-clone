@@ -38,7 +38,7 @@ const Calculator = () => {
     return () => {
       if (animFrameRef.current) cancelAnimationFrame(animFrameRef.current);
     };
-  }, [amount, years, rate, displayed]);
+  }, [future]);
 
   return (
     <section className="section" id="calculator">

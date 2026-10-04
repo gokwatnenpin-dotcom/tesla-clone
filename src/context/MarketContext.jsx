@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { authFetch, useAuth } from './AuthContext';
 
 const MarketContext = createContext();
 
@@ -9,10 +10,11 @@ export const MarketProvider = ({ children }) => {
     open: 363.56,
     high: 368.66,
     low: 358.77,
-    cash: 12450.00,
-    shares: 100,
-    avgCost: 328.90,
+    cash: 0,
+    shares: 0,
+    avgCost: 0,
   });
+  const { user } = useAuth();
 
   useEffect(() => {
     const tick = () => {
@@ -35,45 +37,50 @@ export const MarketProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, []);
 
-  // Helper functions for buying and selling
-  const buyShares = (shares) => {
-    setMarket(prev => {
-      const cost = shares * prev.price;
-      if (cost > prev.cash) {
-        alert('Insufficient cash. Available: $' + prev.cash.toLocaleString());
-        return prev;
-      }
-      const totalCost = prev.avgCost * prev.shares + cost;
-      const newShares = prev.shares + shares;
-      return {
-        ...prev,
-        shares: newShares,
-        avgCost: totalCost / newShares,
-        cash: prev.cash - cost,
-      };
-    });
+  // Load persisted portfolio state from the backend
+  useEffect(() => {
+    authFetch('/api/portfolio')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((p) => {
+        if (p) {
+          setMarket((prev) => ({
+            ...prev,
+            cash: Number(p.cash),
+            shares: p.shares,
+            avgCost: Number(p.avgCost),
+          }));
+        }
+      })
+      .catch(() => {});
+  }, [user]);
+
+  // Helper functions for buying and selling — persisted on the server
+  const buyShares = async (shares) => {
+    try {
+      const res = await authFetch('/api/portfolio/buy', {
+        method: 'POST',
+        body: JSON.stringify({ shares, price: market.price }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { alert(data.error || 'Please log in to trade'); return; }
+      setMarket((prev) => ({ ...prev, cash: data.cash, shares: data.shares, avgCost: data.avgCost }));
+    } catch {
+      alert('Could not reach the server.');
+    }
   };
 
-  const sellShares = (shares) => {
-    setMarket(prev => {
-      if (shares > prev.shares) {
-        alert('Insufficient shares. You hold ' + prev.shares + '.');
-        return prev;
-      }
-      const newShares = prev.shares - shares;
-      const newCash = prev.cash + shares * prev.price;
-      // avgCost remains the same when selling
-      return {
-        ...prev,
-        shares: newShares,
-        cash: newCash,
-      };
-    });
-  };
-
-  const updateOrderShares = (shares) => {
-    // This is just for the order input, we don't update market state here
-    // We'll handle it in the OrderPanel component
+  const sellShares = async (shares) => {
+    try {
+      const res = await authFetch('/api/portfolio/sell', {
+        method: 'POST',
+        body: JSON.stringify({ shares, price: market.price }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { alert(data.error || 'Please log in to trade'); return; }
+      setMarket((prev) => ({ ...prev, cash: data.cash, shares: data.shares, avgCost: data.avgCost }));
+    } catch {
+      alert('Could not reach the server.');
+    }
   };
 
   const marketValue = market.shares * market.price;
@@ -98,8 +105,6 @@ export const MarketProvider = ({ children }) => {
     returnPct,
     buyShares,
     sellShares,
-    // We'll also need a function to update the order shares (local to order panel)
-    // but we can just pass down a setter for the order shares state.
   };
 
   return (

@@ -65,7 +65,7 @@ const Why = () => {
         </svg>
       `,
       title: 'The Mission',
-      description: 'Accelerating the world's transition to sustainable energy. Missions that matter attract talent, capital and patience.',
+      description: "Accelerating the world's transition to sustainable energy. Missions that matter attract talent, capital and patience.",
       delay: 500,
     },
   ];

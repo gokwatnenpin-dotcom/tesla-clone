@@ -26,9 +26,26 @@ const Access = () => {
       setFormMsg('// ERROR: invalid email format');
       return;
     }
-    setMsgType('ok');
-    setFormMsg('// ACCESS REQUESTED — we will be in touch.');
-    setEmail('');
+    fetch('/api/waitlist', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: v }),
+    })
+      .then((r) => r.json().then((d) => ({ ok: r.ok, d })))
+      .then(({ ok, d }) => {
+        if (!ok) {
+          setMsgType('err');
+          setFormMsg('// ERROR: ' + (d.error || 'request failed'));
+          return;
+        }
+        setMsgType('ok');
+        setFormMsg('// ' + d.message);
+        setEmail('');
+      })
+      .catch(() => {
+        setMsgType('err');
+        setFormMsg('// ERROR: could not reach the server');
+      });
   };
 
   const handleEmailChange = (e) => {
